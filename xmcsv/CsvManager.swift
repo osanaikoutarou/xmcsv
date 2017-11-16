@@ -7,7 +7,6 @@
 //
 
 import Cocoa
-import SwiftDate
 
 class CsvManager: NSObject {
     
@@ -16,9 +15,10 @@ class CsvManager: NSObject {
     
     func csv(data: String) -> [[String]] {
         var result: [[String]] = []
-        let rows = data.components(separatedBy: "\n")
+        let rows = data.components(separatedBy: "\r\n")
         for row in rows {
             let columns = row.components(separatedBy: ",")
+            
             result.append(columns)
         }
         return result
@@ -63,23 +63,48 @@ class CsvManager: NSObject {
                     trade.soneki = Double(data[12])
                     
                     tradeDatas.append(trade)
-                    
                 }
                 
+                var count:Int = 0
                 for trade in tradeDatas {
                     
                     if tradeGroupDay.isEmpty {
                         let tradeGroup = TradeGroup()
                         tradeGroup.date = trade.start
                         tradeGroup.trades.append(trade)
+                        tradeGroupDay.append(tradeGroup)
+                        
+                        continue
+                    }
+                    
+                    let tradeGroup = tradeGroupDay.last
+                    
+                    var sameDay = false
+                    // これが上手く出てない
+                    sameDay = Calendar.current.isDate(trade.start!,
+                                                      equalTo: (tradeGroup?.date)!,
+                                                      toGranularity: .day)
+                    if sameDay {
+                        tradeGroup?.trades.append(trade)
                     }
                     else {
-                        let tradeGroup = tradeGroupDay.last
-                        
-                        trade.start.wee
-                        
+                        // 新規day
+                        let newTradeGroup = TradeGroup()
+                        newTradeGroup.date = trade.start
+                        newTradeGroup.trades.append(trade)
+                        tradeGroupDay.append(newTradeGroup)
                     }
-
+                    
+                    if count % 1000 == 0 {
+                        print(count)
+                    }
+                    count += 1
+                }
+                
+                for tradeGroup in tradeGroupDay {
+                    print(tradeGroup.date ?? "nil")
+                    print(tradeGroup.soneki())
+                    print(tradeGroup.trades.count)
                 }
                 
                 print(tradeDatas.count)
@@ -94,7 +119,7 @@ class CsvManager: NSObject {
     func getDate(s:String) -> Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy.MM.dd HH:mm" //Your date format
-        dateFormatter.timeZone = TimeZone(abbreviation: "GMT+9:00") //Current time zone
+        dateFormatter.timeZone = TimeZone(abbreviation: "GMT+00:00") //Current time zone
         let date = dateFormatter.date(from: s) //according to date format your date string
         return date!
     }

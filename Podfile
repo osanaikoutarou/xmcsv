@@ -2,7 +2,7 @@ platform :ios, '10.0'
 use_frameworks!
 
 def common_install
-    pod 'SwiftDate'
+#    pod 'SwiftDate'
 end
 
 target "xmcsv" do

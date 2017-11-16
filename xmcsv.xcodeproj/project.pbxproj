@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0D3FDE89866A7C7172BCA9FE /* Pods_xmcsv.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0526973BC66D006F913D10BB /* Pods_xmcsv.framework */; };
 		DA139B941FB4191E000535F2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA139B931FB4191E000535F2 /* AppDelegate.swift */; };
 		DA139B961FB4191E000535F2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA139B951FB4191E000535F2 /* ViewController.swift */; };
 		DA139B981FB4191E000535F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA139B971FB4191E000535F2 /* Assets.xcassets */; };
@@ -37,7 +36,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0D3FDE89866A7C7172BCA9FE /* Pods_xmcsv.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,6 +384,7 @@
 				DA139BA11FB4191F000535F2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
